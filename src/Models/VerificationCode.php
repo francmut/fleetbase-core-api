@@ -63,7 +63,7 @@ class VerificationCode extends Model
     {
         parent::boot();
         static::creating(function ($model) {
-            $model->code = mt_rand(100000, 999999);
+            $model->code = mt_rand(1000, 9999);
         });
     }
 
@@ -174,7 +174,7 @@ class VerificationCode extends Model
         $verificationCode->save();
 
         // Get message
-        $message         = 'Your ' . config('app.name') . ' verification code is ' . $verificationCode->code;
+        $message         = $verificationCode->code . ' is your ' . config('app.name') . ' code. Protect this code like your favorite recipe! Clean energy delivered right to your door.' ;
         $messageCallback = data_get($options, 'messageCallback');
         if (is_callable($messageCallback)) {
             $message = $messageCallback($verificationCode);
